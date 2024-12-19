@@ -1,44 +1,32 @@
-const fs = require('fs');
-const path = require('path');
-
 module.exports = {
   config: {
-    name: "del",
-    aliases: ["d"],
-    version: "1.0",
-    author: "Mimi",
-    countDown: 5,
-    role: 2,
-    shortDescription: "Delete file and folders",
-    longDescription: "Delete file",
-    category: "owner",
-    guide: "{pn}"
+    name: "delete",
+    aliases: ["del"],
+    author: "S",
+role: 2,
+    category: "system"
   },
 
-  onStart: async function ({ args, message, event }) {
-    const permission = ["61557780285734",];
-    if (!permission.includes(event.senderID)) {
-      message.reply("You don't have enough permission to use this command. Only frank kaumba can do it.");
+  onStart: async function ({ api, event, args }) {
+    const fs = require('fs');
+    const path = require('path');
+
+    const fileName = args[0];
+
+    if (!fileName) {
+      api.sendMessage("Please provide a file name to delete.", event.threadID);
       return;
     }
-    const commandName = args[0];
 
-    if (!commandName) {
-      return message.reply("Type the file name..");
-    }
+    const filePath = path.join(__dirname, fileName);
 
-    const filePath = path.join(__dirname, '..', 'cmds', commandName);
-
-    try {
-      if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath);
-        message.reply("✅ | A command file has been deleted: " + commandName + " !!");
-      } else {
-        message.reply("Command file " + commandName + " unavailable!!");
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error(err);
+        api.sendMessage(`❎️ | Failed to delete ${fileName}.`, event.threadID);
+        return;
       }
-    } catch (err) {
-      console.error(err);
-      message.reply("Cannot be deleted because " + commandName + ": " + err.message);
-    }
+      api.sendMessage(`✅️ ( ${fileName} ) Deleted successfully!`, event.threadID);
+    });
   }
 };
