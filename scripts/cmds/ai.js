@@ -26,7 +26,7 @@ const UPoLPrefix = [
       
      const upol = event.body.substring(ahprefix.length).trim();
    if (!upol) {
-        await message.reply('');
+        await message.reply('Endy here, type your questions ✨');
         return;
       }
       
@@ -42,7 +42,7 @@ const UPoLPrefix = [
       
     const encodedPrompt = encodeURIComponent(args.join(" "));
 
-   await message.reply('thinking..');
+   await message.reply('');
   
     const response = await axios.get(`https://sandipbaruwal.onrender.com/gemini?prompt=${encodedPrompt}`);
  
