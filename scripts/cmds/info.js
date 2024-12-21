@@ -1,64 +1,69 @@
 const fs = require('fs');
 const moment = require('moment-timezone');
-const NepaliDate = require('nepali-date');
 
 module.exports = {
   config: {
     name: "info",
-    version: "1.3",
-    author: "AceGun",
-    countDown: 5,
+    aliases: ["owner", "inf"],
+    version: "1.0",
+    author: "xnil",
+    countDown: 20,
     role: 0,
-    shortDescription: {
-      vi: "",
-      en: "Sends information about the bot and admin along with an image."
-    },
-    longDescription: {
-      vi: "",
-      en: "Sends information about the bot and admin along with an image."
-    },
-    category: "utility",
-    guide: {
-      en: "{pn}"
-    },
+    category: "box chat",
+    guide: { en: "" },
     envConfig: {}
   },
-
   onStart: async function ({ message }) {
-    const botName = "";
-    const botPrefix = "$";
-    const authorName = "";
-    const authorFB = "";
-    const authorInsta = "";
-    const status = "";
-
-    const urls = JSON.parse(fs.readFileSync('zoro.json'));//please provide imgur img link on zoro.json file
+    const botName = global.GoatBot.config.nickNameBot;
+    const botPrefix = global.GoatBot.config.prefix;
+    const authorName = global.GoatBot.config.authorName;
+    const ownAge = global.GoatBot.config.age;
+    const teamName = "𝐗⃯⃖𝐍⃯⃖𝐈⃯⃖𝐋⃯⃖6𝐗⃯⃖";
+    const authorFB = global.GoatBot.config.facebook;
+    const authorFB2 = global.GoatBot.config.facebook2;
+    const authorInsta = global.GoatBot.config.insta;
+    const authorEmail = global.GoatBot.config.email;
+    const Bt = "05/02";
+    const github = global.GoatBot.config.github;
+    const tikTok = "tiktok.com/deepretionking_143";
+    const TG = global.GoatBot.config.TG;
+    const urls = JSON.parse(fs.readFileSync('xnil.json'));
     const link = urls[Math.floor(Math.random() * urls.length)];
-
-    // Get current date and time in Asia/Kathmandu timezone
-    const now = moment().tz('Asia/Kathmandu');
+    const now = moment().tz('Asia/Dhaka');
     const date = now.format('MMMM Do YYYY');
     const time = now.format('h:mm:ss A');
-
-    // Get Nepali date
-    const nepaliDate = new NepaliDate(now.toDate());
-    const bsDateStr = nepaliDate.format("dddd, DD MMMM");
-
-    // Calculate bot uptime
     const uptime = process.uptime();
     const seconds = Math.floor(uptime % 60);
     const minutes = Math.floor((uptime / 60) % 60);
     const hours = Math.floor((uptime / (60 * 60)) % 24);
     const days = Math.floor(uptime / (60 * 60 * 24));
-    const uptimeString = `${hours}hrs: ${minutes}min: ${seconds}sec`;
+    const uptimeString = `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
 
     message.reply({
-      body: `===「 Bot & owner Info 」===\n❏Bot Name: ${botName}\n❏Bot Prefix: ${botPrefix}\n❏AuthorName: ${authorName}\n❏FB: ${authorFB}\n❏Insta: ${authorInsta}\n❏Status: ${status}\n❏Date: ${date}\n❏BsDate:  ${bsDateStr}\n❏Time: ${time}\n❏Bot Running: ${uptimeString}\n=====================`,
+      body: `《 🇧🇩𝘽𝙊𝙏 𝙄𝙉𝙁𝙊𝙍𝙈𝘼𝙏𝙄𝙊𝙉🇧🇩 》
+\===========👑===========
+\n🔴𝘽𝙊𝙏-𝙉𝘼𝙈𝙀: ${botName}
+\n🟠𝘽𝙊𝙏-𝙋𝙍𝙀𝙁𝙄𝙓: ${botPrefix}
+\n⏳𝙐𝙋𝙏𝙄𝙈𝙀: ${uptimeString}
+\n🕣𝙏𝙄𝙈𝙀: ${time}
+\n⏰𝘿𝘼𝙏𝙀: ${date}
+\n\n《 👑𝙊𝙒𝙉𝙀𝙍 𝙄𝙉𝙁𝙊𝙍𝙈𝘼𝙏𝙄𝙊𝙉👑 》
+   \===========👑===========
+\n\n👑𝙊𝙒𝙉𝙀𝙍 𝙉𝘼𝙈𝙀: ${authorName}
+\n🗓𝘼𝙂𝙀: ${ownAge}
+\n⏳𝘽𝙄𝙍𝙏𝙃𝘿𝘼𝙔: ${Bt}
+\n⚓𝙊𝙒𝙉𝙀𝙍 𝙁𝘽: ${authorFB}
+\n👑𝙊𝙒𝙉𝙀𝙍 𝙁𝘽: ${authorFB2}
+\n🧭𝙊𝙒𝙉𝙀𝙍 𝙄𝙉𝙎𝙏𝘼𝙂𝙍𝘼𝙈: ${authorInsta}
+\n💌𝙊𝙒𝙉𝙀𝙍 𝙀𝙈𝘼𝙄𝙇: ${authorEmail}
+\n🛟𝙊𝙒𝙉𝙀𝙍 𝙏𝙄𝙆𝙏𝙊𝙆: ${tikTok}
+\n💌𝙊𝙒𝙉𝙀𝙍 𝙏𝙀𝙇𝙀𝙂𝙍𝘼𝙈𝙀: ${TG}
+\n🎀𝙏𝙀𝘼𝙈: ${teamName}
+\===========👑===========`,
       attachment: await global.utils.getStreamFromURL(link)
     });
   },
-
-  onChat: async function({ event, message, getLang }) {
+  onChat: async function ({ event, message, getLang }) {
     if (event.body && event.body.toLowerCase() === "info") {
       this.onStart({ message });
     }
