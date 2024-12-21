@@ -4,29 +4,26 @@ const moment = require('moment-timezone');
 module.exports = {
   config: {
     name: "datetime",
-    aliases: [],
+    aliases: ["dt"],
     version: "1.3",
-    author: "hặy7hựuw",
+    author: "xnil",
     countDown: 1,
     role: 0,
-    shortDescription: "Displays the current date and time in Nepal.",
+    shortDescription: "Displays the current date and time in BANGLADESH.",
     longDescription: "",
     category: "Date-Time",
-    guide: "{prefix}{name}",
     envConfig: {}
   },
   onStart: async function({ message, args }) {
-    const nepalTime = moment.tz("Asia/Kathmandu").format("h:mm:ss A");
+    const nepalTime = moment.tz("Asia/Dhaka").format("h:mm:ss A");
     const nepaliDate = new NepaliDate(new Date());
     const bsDateStr = nepaliDate.format("dddd, DD MMMM YYYY");
 
-    const reply = `Today Date & Time in Nepal:\n` +
-                  `☛Date: ${moment.tz("Asia/Kathmandu").format("dddd, DD MMMM YYYY")}\n` +
-                  `☛Time: ${nepalTime}\n` +
-                  `☛BsDate: ${bsDateStr}`;
+    const reply = `Today Date & Time in BANGLADESH:\n` +
+                  `☛Date: ${moment.tz("Asia/Dhaka").format("dddd, DD MMMM YYYY")}\n` +
+                  `☛Time: ${nepalTime}\n`
 
     message.reply(reply);
   },
   onEvent: async function() {}
 };
-//contact kshitiz to make your own country time date
